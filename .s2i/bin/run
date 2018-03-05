@@ -28,7 +28,14 @@ CORE_DIR="${CORES_DIR}/${CORE_NAME}"
 # Use scripts from the official docker-solr image
 # https://github.com/docker-solr/docker-solr/tree/master/scripts
 echo "Working from; $(pwd)"
+
 echo
+echo "==========================================================="
+echo "Cores Dir Files"
+echo "-----------------------------------------------------------"
+ls -al "${CORES_DIR}"
+echo "==========================================================="
+echo  
 
 if [[ ! -d ${CORE_DIR} ]]; then
   echo "====================================================================="
@@ -44,7 +51,6 @@ if [[ ! -d ${CORE_DIR} ]]; then
   echo "in that directory.  Otherwise the core will be created in"
   echo "/opt/solr/server/solr/mycores"
   echo "====================================================================="
-  
   solr-precreate ${CORE_NAME} ${CONF_DIR}
 else
   echo "====================================================================="
@@ -61,15 +67,6 @@ else
   echo "in that directory.  Otherwise the core will be created in"
   echo "/opt/solr/server/solr/mycores"
   echo "====================================================================="
-  
-  echo "==========================================================="
-  echo "Source Repo Files"
-  echo "-----------------------------------------------------------"
-  ls -al "${CORES_DIR}"
-  echo "==========================================================="
-  echo
-  
   cp -r "${CONF_DIR}/" "${CORES_DIR}"
-
   exec solr -f
 fi
